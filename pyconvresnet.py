@@ -5,7 +5,7 @@
 import torch
 import torch.nn as nn
 import os
-from download_from_url import download_from_url
+import gdown
 
 try:
     from torch.hub import _get_torch_home
@@ -25,6 +25,9 @@ model_urls = {
     'pyconvresnet152': 'https://drive.google.com/uc?export=download&id=1zR6HOTaHB0t15n6Nh12adX86AhBMo46m',
 }
 
+def download_url(url: str, model_path: str):
+    gdown.download(url, model_path, quiet=False)
+    return
 
 class PyConv2d(nn.Module):
     """PyConv2d with padding (general case). Applies a 2D PyConv over an input signal composed of several input planes.
@@ -285,8 +288,7 @@ def pyconvresnet50(pretrained=False, **kwargs):
     model = PyConvResNet(PyConvBlock, [3, 4, 6, 3], **kwargs)
     if pretrained:
         os.makedirs(default_cache_path, exist_ok=True)
-        model.load_state_dict(torch.load(download_from_url(model_urls['pyconvresnet50'],
-                                                           root=default_cache_path)))
+        model.load_state_dict(torch.load(download_from_url(model_urls['pyconvresnet50'], 'pyconvresnet50.pth')))
     return model
 
 
@@ -298,8 +300,7 @@ def pyconvresnet101(pretrained=False, **kwargs):
     model = PyConvResNet(PyConvBlock, [3, 4, 23, 3], **kwargs)
     if pretrained:
         os.makedirs(default_cache_path, exist_ok=True)
-        model.load_state_dict(torch.load(download_from_url(model_urls['pyconvresnet101'],
-                                                           root=default_cache_path)))
+        model.load_state_dict(torch.load(download_from_url(model_urls['pyconvresnet101'], 'pyconvresnet101.pth')))
     return model
 
 
@@ -311,6 +312,5 @@ def pyconvresnet152(pretrained=False, **kwargs):
     model = PyConvResNet(PyConvBlock, [3, 8, 36, 3], **kwargs)
     if pretrained:
         os.makedirs(default_cache_path, exist_ok=True)
-        model.load_state_dict(torch.load(download_from_url(model_urls['pyconvresnet152'],
-                                                           root=default_cache_path)))
+        model.load_state_dict(torch.load(download_from_url(model_urls['pyconvresnet152'], 'pyconvresnet152.pth')))
     return model
