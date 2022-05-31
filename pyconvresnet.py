@@ -25,7 +25,7 @@ model_urls = {
     'pyconvresnet152': 'https://drive.google.com/uc?export=download&id=1zR6HOTaHB0t15n6Nh12adX86AhBMo46m',
 }
 
-def download_url(url: str, model_path: str):
+def download_from_url(url: str, model_path: str):
     gdown.download(url, model_path, quiet=False)
     return
 
