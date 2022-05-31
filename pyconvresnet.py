@@ -205,7 +205,7 @@ class PyConvResNet(nn.Module):
         #                             nn.MaxPool2d((1,5), (1,5)))
 
         # self.avgpool = nn.AdaptiveAvgPool2d((4,1))
-        self.fc = nn.Linear(512 * block.expansion * 4, num_classes)
+        # self.fc = nn.Linear(512 * block.expansion * 4, num_classes)
 
         if dropout_prob0 > 0.0:
             self.dp = nn.Dropout(dropout_prob0, inplace=True)
@@ -213,7 +213,7 @@ class PyConvResNet(nn.Module):
         else:
             self.dp = None
 
-        # self.fc = nn.Linear(512 * block.expansion, num_classes)
+        self.fc = nn.Linear(512 * block.expansion, num_classes)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
