@@ -204,7 +204,7 @@ class PyConvResNet(nn.Module):
         # self.avgpool = nn.Sequential(nn.AdaptiveAvgPool2d((4,5)),
         #                             nn.MaxPool2d((1,5), (1,5)))
 
-        # self.avgpool = nn.AdaptiveAvgPool2d((4,1))
+        self.avgpool = nn.AdaptiveAvgPool2d((4,1))
         self.fc = nn.Linear(512 * block.expansion * 4, num_classes)
 
         if dropout_prob0 > 0.0:
