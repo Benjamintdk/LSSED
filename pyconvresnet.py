@@ -186,8 +186,8 @@ class PyConvResNet(nn.Module):
             norm_layer = nn.BatchNorm2d
 
         self.inplanes = 64
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
-        # self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
+#         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
         self.bn1 = norm_layer(64)
         self.relu = nn.ReLU(inplace=True)
 
@@ -199,13 +199,13 @@ class PyConvResNet(nn.Module):
                                        pyconv_kernels=[3, 5], pyconv_groups=[1, 4])
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2, norm_layer=norm_layer,
                                        pyconv_kernels=[3], pyconv_groups=[1])
-        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+#         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
 
         # self.avgpool = nn.Sequential(nn.AdaptiveAvgPool2d((4,5)),
         #                             nn.MaxPool2d((1,5), (1,5)))
 
-        # self.avgpool = nn.AdaptiveAvgPool2d((4,1))
-        # self.fc = nn.Linear(512 * block.expansion * 4, num_classes)
+        self.avgpool = nn.AdaptiveAvgPool2d((4,1))
+        self.fc = nn.Linear(512 * block.expansion * 4, num_classes)
 
         if dropout_prob0 > 0.0:
             self.dp = nn.Dropout(dropout_prob0, inplace=True)
@@ -213,7 +213,7 @@ class PyConvResNet(nn.Module):
         else:
             self.dp = None
 
-        self.fc = nn.Linear(512 * block.expansion, num_classes)
+#         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
